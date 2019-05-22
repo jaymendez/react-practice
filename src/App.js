@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Landing from './components/layout/Landing';
+import ReactDOM from 'react-dom';
+import AppBar from './components/materialize/appbar';
+import CreateProject from './components/createProject/createProject';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App() { 
+    return (
+      <div className="App">
+        <Router>
+                <AppBar text="Signed in as Geo" />
+                <div className="App"  style={{ margin: 10 }}> 
+                    <Route exact path="/" component={ Landing } />
+                    {/* <Landing /> */}
+                    <div className="container"> 
+                        <Route exact path="/create" component={ CreateProject } />
+                    </div> 
+                </div>
+            </Router>
+      </div>
+    );
 }
 
 export default App;
