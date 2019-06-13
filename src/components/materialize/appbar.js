@@ -37,7 +37,7 @@ function ButtonAppBar(props) {
             <Icon>add_circle</Icon>
             </IconButton>  
             <Typography align="right" color="inherit" className={classes.grow} style={{margin: 5}}>
-                <p>{text} </p>
+                {text}
             </Typography>
             <Button
             variant="contained"

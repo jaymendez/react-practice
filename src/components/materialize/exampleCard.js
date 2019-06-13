@@ -79,79 +79,83 @@ class TextFields extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid container spacing={0} alignItems="center" justify="center">
-                <Grid item xs={10}>
-                    <Card className={classes.card} justify="center">
-                        <CardContent>
-                            <form className={classes.container} noValidate autoComplete="off">
-                                <Grid container spacing={8}>
-                                    <Grid item  xs={9}>
-                                        <br/>
-                                        <TextField
-                                            id="question"
-                                            label="Question"
-                                            className={classes.textField}
-                                            value={this.state.name}
-                                            placeholder="Name"
-                                            onChange={this.handleChange('name')}
-                                            margin="normal"
-                                            fullWidth
-                                            variant="outlined"
-                                        />
+            <React.Fragment>
 
-                                        <TextField
-                                            id="preview"
-                                            label="Preview"
-                                            className={classes.textField}
-                                            // value={this.state.name}
-                                            placeholder="Sample Short Answer Field."
-                                            onChange={this.handleChange('name')}
-                                            margin="normal"
-                                            fullWidth
-                                            variant="outlined"
-                                        />
+                <Grid container spacing={0} alignItems="center" justify="center">
+                    <Grid item xs={10}>
+                        <Card className={classes.card} justify="center">
+                            <CardContent>
+                                <form className={classes.container} noValidate autoComplete="off">
+                                    <Grid container spacing={8}>
+                                        <Grid item  xs={9}>
+                                            <br/>
+                                            <TextField
+                                                id="question"
+                                                label="Question"
+                                                className={classes.textField}
+                                                value={this.state.name}
+                                                placeholder="Name"
+                                                onChange={this.handleChange('name')}
+                                                margin="normal"
+                                                fullWidth
+                                                variant="outlined"
+                                            />
+
+                                            <TextField
+                                                id="preview"
+                                                label="Preview"
+                                                className={classes.textField}
+                                                // value={this.state.name}
+                                                placeholder="Sample Short Answer Field."
+                                                onChange={this.handleChange('name')}
+                                                margin="normal"
+                                                fullWidth
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        <Grid item  xs>
+                                            <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                                                <InputLabel
+                                                    ref={ref => {
+                                                        this.InputLabelRef = ref;
+                                                    }}
+                                                    htmlFor="outlined-age-simple"
+                                                >
+                                                    Select Response Type
+                                                </InputLabel>
+                                                <Select
+                                                    value={this.state.age}
+                                                    onChange={this.handleChangeSelect}
+                                                    input={
+                                                        <OutlinedInput
+                                                            labelWidth={this.state.labelWidth}
+                                                            name="age"
+                                                            id="outlined-age-simple"
+                                                        />
+                                                    }
+                                                >
+                                                    <MenuItem value="">
+                                                    <em>None</em>
+                                                    </MenuItem>
+                                                    <MenuItem value={10}>Ten</MenuItem>
+                                                    <MenuItem value={20}>Twenty</MenuItem>
+                                                    <MenuItem value={30}>Thirty</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                            
+                                        </Grid>
                                     </Grid>
-                                    <Grid item  xs>
-                                        <FormControl variant="outlined" className={classes.formControl} fullWidth>
-                                            <InputLabel
-                                                ref={ref => {
-                                                    this.InputLabelRef = ref;
-                                                }}
-                                                htmlFor="outlined-age-simple"
-                                            >
-                                                Select Response Type
-                                            </InputLabel>
-                                            <Select
-                                                value={this.state.age}
-                                                onChange={this.handleChangeSelect}
-                                                input={
-                                                    <OutlinedInput
-                                                        labelWidth={this.state.labelWidth}
-                                                        name="age"
-                                                        id="outlined-age-simple"
-                                                    />
-                                                }
-                                            >
-                                                <MenuItem value="">
-                                                <em>None</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        
-                                    </Grid>
-                                </Grid>
-                            </form>
+                                </form>
 
-                        </CardContent>
-                        <CardActions>
+                            </CardContent>
+                            <CardActions>
 
-                        </CardActions>
-                    </Card>
+                            </CardActions>
+                        </Card>
+                    </Grid>
                 </Grid>
-            </Grid>
+                <br/>
+            </React.Fragment>
         )
     }
 

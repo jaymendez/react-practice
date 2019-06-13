@@ -15,9 +15,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Icon from "@material-ui/core/Icon";
 import Button from '@material-ui/core/Button';
 
-import Attribute from '../createProject/Attribute';
-
-
+// import Attribute from '../createProject/Attribute';
+import Attribute from '../Attribute2';
 
  
 const styles = theme => ({
@@ -56,22 +55,35 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         width: 300
     },
+    dottedCard: {
+        backgroundImage: "linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 0%)",
+        backgroundPosition: "top",
+        backgroundSize: "10px 1px",
+        backgroundRepeat: "repeat-x",
+    }
   });
 
-class TextFields extends React.Component {
-    state = {
-        attribute : '',
-        age: '',
-        multiline: 'Controlled',
-        currency: 'EUR',
-        labelWidth: 0,
-    };
+class AddCard extends React.Component {
+    
+    constructor(props) {
+        super();
+        this.state = {
+            attribute : '',
+            age: '',
+            multiline: 'Controlled',
+            currency: 'EUR',
+            labelWidth: 0,
+            id: 'TRIAL',
+        };
+        this.attributeHandler = this.attributeHandler.bind(this);
+    }
+ 
     /*
         Dito rin nakalagay if anong attribute yung lalabas, papasa ng props dito if anong attribute from createProject, then may switch statement kung ano yung attribute na yun
     */
-    handleChange = name => event => {
-        this.setState({ name: event.target.value });
-    };
+    // handleChange = name => event => {
+    //     this.setState({ name: event.target.value });
+    // };
 
     componentDidMount() {
         this.setState({
@@ -79,17 +91,36 @@ class TextFields extends React.Component {
         });
       }
     
-    handleChangeSelect = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    attributeHandler() {
+        this.props.printVal(this.props.id);
+    }
+
+    handleChange = (event) => {
+        this.props.handler(event);
     };
 
+    addAdditionalResponse = (key, ordinal) => {
+        this.props.addAdditionalResponse(key, ordinal);
+    }
     render() {
         const { classes } = this.props;
-        const attribute = this.state.attribute;
-        const element = <Attribute type={attribute} />
+        // const attribute = this.state.attribute;
+        console.log(this.props)
+        const element = (
+          <Attribute
+            key={this.props.key}
+            order={this.props.cardKey}
+            type={this.props.attribute}
+            addOptionsHandler={this.props.addOptionsHandler}
+            removeOptionsHandler={this.props.removeOptionsHandler}
+            removeCardHandler={this.props.removeCardHandler}
+            handler={this.handleChange}
+            fetchChildOptions={this.props.fetchChildOptions}
+          />
+        );
+        // const element = <Attribute type={this.props.attribute.name} />
         return (
             <div>
-                <br/>
                 <Grid container spacing={0} alignItems="center" justify="center">
                     <Grid item xs={10}>
                         <Card className={classes.card}>
@@ -101,10 +132,11 @@ class TextFields extends React.Component {
                                                 id="question"
                                                 label="Question" 
                                                 className={classes.textField}
-                                                value={this.state.name}
+                                                value={this.props.attribute.name}
                                                 placeholder="Type your question here"
-                                                onChange={this.handleChange('name')}
+                                                onChange={this.props.handler}
                                                 margin="normal"
+                                                name="name"
                                                 fullWidth
                                             />
 
@@ -119,16 +151,19 @@ class TextFields extends React.Component {
                                                         this.InputLabelRef = ref;
                                                     }}
                                                     htmlFor="outlined-age-simple"
+                                                    shrink
                                                 >
                                                     Select Response Type
                                                 </InputLabel>
                                                 <Select
-                                                    value={this.state.attribute}
-                                                    onChange={this.handleChangeSelect}
+                                                    name="type"
+                                                    value={this.props.attribute.type}
+                                                    onChange={this.handleChange}
+                                                    id={this.props.attribute.key}
                                                     input={
                                                         <OutlinedInput
                                                             labelWidth={this.state.labelWidth}
-                                                            name="attribute"
+                                                            name="name"
                                                             id="outlined-age-simple"
                                                         />
                                                     }
@@ -146,7 +181,7 @@ class TextFields extends React.Component {
                                                         <MenuItem value={'dropdown'}><Icon style={{marginRight:"5px"}}>arrow_drop_down_circle</Icon>Drop-down</MenuItem>
                                                 </Select>
                                             </FormControl>
-                                            <Button variant="contained" className={classes.button}>
+                                            <Button variant="contained" className={classes.button} onClick={this.addAdditionalResponse.bind(this.props.cardKey, this.props.cardKey)}>
                                                 Add Additional Response
                                             </Button>
                                         </Grid>
@@ -167,8 +202,8 @@ class TextFields extends React.Component {
     
 }
  
-TextFields.propTypes = {
+AddCard.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-export default withStyles(styles)(TextFields);
+export default withStyles(styles)(AddCard);
